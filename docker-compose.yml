@@ -6,13 +6,27 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    volumes:
+    volumes: &rails-volumes
       - .:/app
+    environment: &rails-env
+      REDIS_URL: 'redis://redis:6379/0'
   db:
     image: postgres:10
     environment:
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD:
     volumes:
       - pg_data:/var/lib/postgresql/data
+  redis:
+    image: redis:5
+    volumes:
+      - redis_data:/data
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes: *rails-volumes
+    environment: *rails-env
 volumes:
   pg_data:
+  redis_data:

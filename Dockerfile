@@ -11,7 +11,7 @@ RUN mkdir /app
 WORKDIR /app
 
 # Install basic gems
-RUN gem install rails:'~> 5.2.3' nokogiri ffi
+RUN gem install rails:'~> 5.2.3' nokogiri ffi sassc:'~> 2'
 
 # Copy Gemfile
 COPY Gemfile ./Gemfile

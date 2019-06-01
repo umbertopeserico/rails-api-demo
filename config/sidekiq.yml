@@ -1,0 +1,9 @@
+:concurrency: 10
+
+:queues:
+  - default
+  - mailers
+
+production:
+  :concurrency: 10
+
