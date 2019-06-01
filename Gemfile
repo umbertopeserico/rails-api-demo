@@ -18,6 +18,23 @@ gem 'uglifier', '>= 1.3.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# Redis client
+gem 'redis'
+
+# Gestione job asincroni
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'sidekiq-history'
+
+# Annotate models with table structure
+gem 'annotate'
+
+# Pretty print data in console
+gem 'awesome_print'
+
+# Locale translations
+gem 'rails-i18n'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
