@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Per avviare il progetto installare Docker e Docker Compose.
 
-Things you may want to cover:
+Per lanciare la build eseguire
 
-* Ruby version
+<code>$ docker-compose up</code>
 
-* System dependencies
+Al primo avvio serve inizializzare il database con i comandi
 
-* Configuration
+<code>$ docker-compose exec web rails db:create</code>
 
-* Database creation
+<code>$ docker-compose exec web rails db:migrate</code>
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<code>$ docker-compose exec web rails db:seed</code>
