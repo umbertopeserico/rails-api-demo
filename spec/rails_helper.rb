@@ -2,6 +2,7 @@
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require 'byebug'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
@@ -81,3 +82,13 @@ RSpec.configure do |config|
   # Include Shoulda matchers
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
+require 'validates_email_format_of/rspec_matcher'
+require 'money-rails/test_helpers'

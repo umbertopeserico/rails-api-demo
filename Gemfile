@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) {|repo| "https://github.com/#{repo}.git"}
 
 ruby '2.6.3'
 
@@ -35,6 +35,12 @@ gem 'awesome_print'
 # Locale translations
 gem 'rails-i18n'
 
+# Validates email format
+gem 'validates_email_format_of'
+
+# Manage currencies
+gem 'money-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -44,6 +50,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5'
   gem 'ffaker', '~> 2'
   gem 'rspec-rails', '~> 3'
+  gem 'spring-commands-rspec'
   gem 'shoulda-matchers', '~> 4'
 end
 
