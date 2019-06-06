@@ -2,12 +2,13 @@
 #
 # Table name: v1_passengers
 #
-#  id         :string           not null, primary key
-#  email      :string           not null
-#  first_name :string
-#  last_name  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :string           not null, primary key
+#  email           :string           not null
+#  first_name      :string
+#  last_name       :string
+#  password_digest :string           default(""), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 # Indexes
 #
@@ -18,6 +19,8 @@ class V1::Passengers::Passenger < V1::ApplicationRecord
   #<editor-fold desc="Modules">
   self.table_name = V1::Passengers.table_name_prefix(no_last_underscore: true)
   include RandomId
+
+  has_secure_password
   #</editor-fold>
 
   #<editor-fold desc="Relations">
@@ -58,6 +61,26 @@ class V1::Passengers::Passenger < V1::ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def jwt_payload
+    {
+        id: self.id
+    }
+  end
+
+  class << self
+    def authenticate_by_email(params)
+      user = self.find_by(email: params[:email])
+
+      !!user && user.authenticate(params[:password])
+    end
+
+    def authenticate_by_token(token)
+      payload = JsonWebToken.decode(token)
+
+      !!payload && self.find_by(id: payload[:id])
+    end
   end
 
   private

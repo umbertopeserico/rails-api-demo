@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+ENV['JWT_SECRET_KEY'] = 'qwertyuiop'
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'byebug'
