@@ -2,12 +2,13 @@
 #
 # Table name: v1_passengers
 #
-#  id         :string           not null, primary key
-#  email      :string           not null
-#  first_name :string
-#  last_name  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :string           not null, primary key
+#  email           :string           not null
+#  first_name      :string
+#  last_name       :string
+#  password_digest :string           default(""), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 # Indexes
 #
@@ -32,6 +33,7 @@ RSpec.describe V1::Passengers::Passenger, type: :model do
   it {is_expected.to validate_presence_of(:first_name)}
   it {is_expected.to validate_presence_of(:last_name)}
   it {is_expected.to validate_presence_of(:email)}
+  it {is_expected.to have_secure_password}
 
   it {expect(subject).to validate_email_format_of(:email)
                              .with_message(I18n.t('activerecord.errors.messages.invalid_email'))}
@@ -58,5 +60,29 @@ RSpec.describe V1::Passengers::Passenger, type: :model do
     it 'should be equal to full_name' do
       expect(subject.to_s).to be == subject.full_name
     end
+  end
+
+  describe '#self.authenticate_by_email method' do
+    before do
+      subject.password = 'Ciao1234'
+      subject.password_confirmation = 'Ciao1234'
+      subject.save!
+    end
+
+    it 'should return true with valid params' do
+      result = subject.class.authenticate_by_email(email: subject.email, password: 'Ciao1234')
+      expect(result).to be == subject
+    end
+
+    it 'should return false with invalid params' do
+      result = subject.class.authenticate_by_email(email: subject.email, password: 'invalid')
+      expect(result).to be false
+    end
+  end
+
+  it {is_expected.to respond_to :jwt_payload}
+
+  describe 'jwt_payload' do
+    it {expect(subject.jwt_payload).to be == {id: subject.id}}
   end
 end

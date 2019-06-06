@@ -2,12 +2,13 @@
 #
 # Table name: v1_passengers
 #
-#  id         :string           not null, primary key
-#  email      :string           not null
-#  first_name :string
-#  last_name  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :string           not null, primary key
+#  email           :string           not null
+#  first_name      :string
+#  last_name       :string
+#  password_digest :string           default(""), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 # Indexes
 #
@@ -19,6 +20,8 @@ FactoryBot.define do
     first_name { FFaker::Name.first_name }
     last_name { FFaker::Name.last_name }
     email { FFaker::Internet.email }
+    password {'Ciao1234'}
+    password_confirmation {'Ciao1234'}
 
     trait :with_preferences do
       association :preferences, factory: 'v1_passengers_passenger'

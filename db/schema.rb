@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_142359) do
+ActiveRecord::Schema.define(version: 2019_06_06_194650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_06_03_142359) do
     t.string "first_name"
     t.string "last_name"
     t.string "email", null: false
+    t.string "password_digest", default: "", null: false
     t.index "lower((email)::text)", name: "index_v1_passengers_on_LOWER_email", unique: true
   end
 
