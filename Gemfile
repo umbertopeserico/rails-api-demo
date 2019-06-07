@@ -44,6 +44,10 @@ gem 'money-rails'
 # Authentication
 gem 'bcrypt', '~> 3'
 gem 'jwt', '~> 2'
+gem 'devise'
+
+# ActiveAdmin
+gem 'activeadmin'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
