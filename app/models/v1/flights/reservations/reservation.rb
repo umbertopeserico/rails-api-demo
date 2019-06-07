@@ -39,8 +39,12 @@ class V1::Flights::Reservations::Reservation < V1::ApplicationRecord
 
   #<editor-fold desc="Validations">
   validate do
-    if self.execution.available_seats <= 0
-      self.errors.add(:execution, :seat_not_available, message: 'Seats not available  ')
+    if self.execution.nil?
+      self.errors.add(:execution, :invalid_execution)
+    else
+      if self.execution.available_seats <= 0
+        self.errors.add(:execution, :seat_not_available, message: 'Seats not available')
+      end
     end
   end
   #</editor-fold>

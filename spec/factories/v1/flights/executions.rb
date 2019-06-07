@@ -10,14 +10,17 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  assigned_airplane_id :string           not null
+#  flight_id            :string           not null
 #
 # Indexes
 #
 #  index_v1_flights_executions_on_assigned_airplane_id  (assigned_airplane_id)
+#  index_v1_flights_executions_on_flight_id             (flight_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (assigned_airplane_id => v1_flights_airplanes.id) ON DELETE => restrict ON UPDATE => cascade
+#  fk_rails_...  (flight_id => v1_flights.id) ON DELETE => restrict ON UPDATE => cascade
 #
 
 FactoryBot.define do
@@ -26,5 +29,6 @@ FactoryBot.define do
     arrival_time { "2019-06-03 16:28:38" }
     price { 10 }
     association :assigned_airplane, factory: :v1_flights_airplane, strategy: :create
+    association :flight, factory: :v1_flights_flight, strategy: :create
   end
 end
