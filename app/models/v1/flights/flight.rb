@@ -31,6 +31,11 @@ class V1::Flights::Flight < V1::ApplicationRecord
 
   belongs_to :arrival_airport,
              class_name: 'V1::Flights::Airport'
+
+  has_many :executions,
+           class_name: 'V1::Flights::Execution',
+           inverse_of: :flight,
+           dependent: :restrict_with_error
   #</editor-fold>
 
   #<editor-fold desc="Validations">

@@ -34,6 +34,8 @@ RSpec.describe V1::Flights::Flight, type: :model do
   it {is_expected.to belong_to(:departure_airport)}
   it {is_expected.to belong_to(:arrival_airport)}
 
+  it {is_expected.to have_many(:executions)}
+
   it {is_expected.to validate_presence_of(:departure_airport)}
   it {is_expected.to validate_presence_of(:arrival_airport)}
 

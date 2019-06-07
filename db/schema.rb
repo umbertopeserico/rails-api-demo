@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_06_194650) do
+ActiveRecord::Schema.define(version: 2019_06_07_081736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,9 @@ ActiveRecord::Schema.define(version: 2019_06_06_194650) do
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "EUR", null: false
     t.string "assigned_airplane_id", null: false
+    t.string "flight_id", null: false
     t.index ["assigned_airplane_id"], name: "index_v1_flights_executions_on_assigned_airplane_id"
+    t.index ["flight_id"], name: "index_v1_flights_executions_on_flight_id"
   end
 
   create_table "v1_flights_reservations", id: :string, force: :cascade do |t|
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_194650) do
 
   add_foreign_key "v1_flights", "v1_flights_airports", column: "arrival_airport_id", on_update: :cascade, on_delete: :restrict
   add_foreign_key "v1_flights", "v1_flights_airports", column: "departure_airport_id", on_update: :cascade, on_delete: :restrict
+  add_foreign_key "v1_flights_executions", "v1_flights", column: "flight_id", on_update: :cascade, on_delete: :restrict
   add_foreign_key "v1_flights_executions", "v1_flights_airplanes", column: "assigned_airplane_id", on_update: :cascade, on_delete: :restrict
   add_foreign_key "v1_flights_reservations", "v1_flights_executions", column: "execution_id", on_update: :cascade, on_delete: :restrict
   add_foreign_key "v1_flights_reservations", "v1_passengers", column: "owner_id", on_update: :cascade, on_delete: :nullify
