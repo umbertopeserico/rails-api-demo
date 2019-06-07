@@ -73,6 +73,7 @@ class V1::Flights::Flight < V1::ApplicationRecord
 
   #<editor-fold desc="Methods">
   def to_s
+    "#{departure_airport} - #{arrival_airport}"
   end
 
   private
